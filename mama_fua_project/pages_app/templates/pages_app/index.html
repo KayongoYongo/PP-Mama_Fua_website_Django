@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/landing_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Home page</title>
+</head>
+
+<header class="header">
+    <a href="#" class="logo">Logo</a>
+
+    <nav class="navbar">
+    </nav>
+</header>
+<body>
+    <div class="first-container">
+        <div class="first-heading">
+            <h1>Welcome to Mama-Fua<br><span>Laundry Services</span></h1>
+            <br>
+            <p>The wash-wash business that only leaves your clothes clean</p>
+            <br>
+            <p>Want to get started with pick up and delivery?</p>
+            <br>
+            <button>Sign up</button>
+        </div>
+        <div>
+            <img src="{% static 'img/laundry.jpg' %}" alt="">
+        </div>
+    </div>
+    <div class="second-container">
+        <div>
+            <img src="{% static 'img/laundry-services.jpg' %}" alt=""> 
+        </div>
+        <div class="second-heading">
+            <h1>Our Services :</h1>
+            <ul>
+                <li>Dry cleaning</li>
+                <li>Wet cleaning</li>
+                <li>Wash and Fold</li> 
+                <li>Ironing</li>
+                <li>Speciality cleaning eg Wedding Dresses and Suits</li>
+                <li>Household items eg Carpets, curtains</li>
+            </ul>
+        </div>
+    </div>
+    <div class="third-container">
+        <h1>How we work</h1>
+        <img src="{% static 'img/how-we-work.jpeg' %}" alt="">
+    </div>
+    <div class="last-heading">
+        <h1>Our Prices:</h1>
+    </div>
+    <div class="last-container">
+        <div class="mini-containers">
+            <div>
+                <img src="{% static 'img/wet-cleaning.jpg' %}" alt="">
+            </div>
+            <p>Wet cleaning:</p>
+            <ul>
+                <li>From 500 ksh per kg</li>
+            </ul>
+        </div>
+        <div class="mini-containers">
+            <div>
+                <img src="{% static 'img/dry-cleaning.jpg' %}" alt="">
+            </div>
+            <p>Dry cleaning:</p>
+            <ul>
+                <li>From 100 ksh per fabric</li>
+            </ul>
+        </div>
+        <div class="mini-containers">
+            <div>
+                <img src="{% static 'img/wedding-attire.avif' %}" alt="">
+            </div>
+            <p>Speciality cleaning:</p>
+            <ul>
+                <li>From 500 ksh per fabric</li>
+            </ul>
+        </div>
+        <div class="mini-containers">
+            <div>
+                <img src="{% static 'img/carpets.jpg' %}" alt="">
+            </div>
+            <p>Curtains & Carpets</p>
+            <ul>
+                <li>From 1000 ksh per fabric</li>
+            </ul>
+        </div>
+        <div class="mini-containers">
+            <div>
+                <img src="{% static 'img/bed-linen.jpg' %}" alt="">
+            </div>
+            <p>Bed Linen</p>
+            <ul>
+                <li>Bed sheets from 300 ksh per kg</li>
+                <li>Pillows from 200 ksh per kg</li>
+                <li>Duvets from 1000 ksh per kg</li>
+            </ul>
+        </div>
+        <div class="mini-containers">
+            <div>
+                <img src="{% static 'img/ironing.jpg' %}" alt="">
+            </div>
+            <p>Ironing</p>
+            <ul>
+                <li>From 10 ksh per fabric</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<footer>
+    <div class="social-icons">
+        <i class='bx bxl-facebook-square' ></i>
+        <i class='bx bxl-twitter' ></i>
+        <i class='bx bxl-instagram' ></i>
+    </div>
+    <div class="footer-nav">
+        <a href="#">Home</a>
+        <a href="#">Log In</a>
+        <a href="#">Book Online</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="copyright">
+        <p>Copyright &copy;2023<br>Designed by: Kayongo Samuel Yongo</p>
+    </div>
+</footer>
+</html>
