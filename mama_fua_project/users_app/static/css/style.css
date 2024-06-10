@@ -1,0 +1,7 @@
+.container {
+    margin-top: 150px; /* Optional: Adjust the top margin as needed */
+    background-color: white; /* Set the background color to blue */
+    padding: 20px; /* Optional: Add padding for better appearance */
+    border-radius: 10px; /* Optional: Add border radius for rounded corners */
+    width: 500px;
+}
