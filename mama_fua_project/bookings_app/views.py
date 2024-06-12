@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
 from bookings_app.models import Booking
 from bookings_app.forms.bookings_form import BookingsForm
+from django.shortcuts import get_object_or_404 ,render, redirect
+from django.contrib import messages
 
 # Create your views here.
-def home_page(request):
-    return render(request, 'bookings_app/index.html')
+def user_dashboard(request):
+    return render(request, 'bookings_app/user_dashboard.html')
 
 def create_booking(request):
     if request.method == 'POST':
@@ -15,17 +16,69 @@ def create_booking(request):
         # validate the form daata
         if form.is_valid():
 
-            # retrieve the cleaned data from the form
+            user = request.user
+            pickup_date = form.cleaned_data['pickup_date']
+            pickup_time = form.cleaned_data['pickup_time']
             location = form.cleaned_data['location']
-            picked_at = form.cleaned_data['picked_at']
 
-            # create the booking
-            Booking.objects.create(location=location, picked_at=picked_at)
+            # create the booking object
+            Booking.objects.create(user=user, pickup_date=pickup_date, pickup_time=pickup_time, location=location)
 
             # redirect the user to the home page
-            return redirect('home_page')
+            return redirect('user_dashboard')
     else:
         form = BookingsForm()
 
     # render the bookings template with the form data
-    return render(request, 'bookings_app/index.html', {'form': form})
+    return render(request, 'bookings_app/create_booking.html', {'form': form})
+
+def edit_booking(request):
+    # retrieve the booking object
+    booking = get_object_or_404(Booking, id=id)
+
+    # check if the request method is POST
+    if request.method == 'POST':
+
+        # instantiate the form with the dat submitted in the request
+        form = BookingsForm(request.POST)
+
+        # validate the form data
+        if form.is_valid():
+
+            # retrieve the cleaned data from the form
+            pickup_date = form.cleaned_data['pickup_date']
+            pickup_time = form.cleaned_data['pickup_time']
+            location = form.cleaned_data['location']
+
+            # update the bookings object
+            booking.pickup_date = pickup_date
+            booking.pickup_time = pickup_time
+            booking.location = location
+
+            # save the updated blog object ot the database
+            booking.save()
+
+            # display the success message to the user
+            messages.success(request, 'Booking updated successfully')
+
+            # redirect the user to the dashboard
+            return redirect('user_dashboard')
+        
+    else:
+        # if the request method is GET
+        form = BookingsForm(instance=booking)
+
+    # render the booking form with the form and bookings data
+    return render(request, 'bookings_app/edit_booking.html', {'form': form, 'booking': booking})
+
+def delete_booking(request, id):
+    booking = get_object_or_404(Booking, id=id)
+
+    # delete the booking
+    booking.delete()
+
+    # send the user a message
+    messages.success(request, 'Booking deleted successfully')
+
+    # redirect the user to the user dashboard
+    return redirect('user_dashboard')
