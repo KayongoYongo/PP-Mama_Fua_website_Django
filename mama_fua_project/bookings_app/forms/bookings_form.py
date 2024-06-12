@@ -4,19 +4,20 @@ from django import forms
 class BookingsForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ['picked_at', 'location', ]
+        fields = ['pickup_date', 'pickup_time', 'location']
         widgets = {
-            'picked_at': forms.HiddenInput(),
+            'pickup_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'pickup_time': forms.Select(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'placeholder': 'location', 'class': 'form-control'}),
         }
 
-    def clean_picked_at(self):
-        picked_at = self.cleaned_data.get('picked_at')
+    def clean_pickup_date(self):
+        pickup_date = self.cleaned_data.get('pickup_date')
 
-        if picked_at is None or picked_at.strip() == '':
-            raise forms.ValidationError("The picked date cannot remain empty")
+        if pickup_date is None:
+            raise forms.ValidationError("The pickup date cannot remain empty")
         
-        return picked_at
+        return pickup_date
 
     def clean_location(self):
         location = self.cleaned_data.get('location')
