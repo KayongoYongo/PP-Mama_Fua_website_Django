@@ -32,6 +32,15 @@ def create_booking(request):
     # render the bookings template with the form data
     return render(request, 'bookings_app/create_booking.html', {'form': form})
 
+def view_my_booking(request):
+    # current user
+    user = request.user
+
+    # get the bookings from
+    bookings = Booking.objects.filter(user=user).order_by('-created_at')
+
+    return render(request, 'booking_app/my_bookings.html', {'bookings': bookings})
+
 def edit_booking(request):
     # retrieve the booking object
     booking = get_object_or_404(Booking, id=id)
