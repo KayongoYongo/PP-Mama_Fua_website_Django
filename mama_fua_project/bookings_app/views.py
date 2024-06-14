@@ -1,7 +1,8 @@
-from bookings_app.models import Booking
-from bookings_app.forms.bookings_form import BookingsForm
 from django.shortcuts import get_object_or_404 ,render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from bookings_app.models import Booking
+from bookings_app.forms.bookings_form import BookingsForm
 
 # Create your views here.
 def user_dashboard(request):
@@ -32,6 +33,7 @@ def create_booking(request):
     # render the bookings template with the form data
     return render(request, 'bookings_app/create_booking.html', {'form': form})
 
+@login_required
 def view_my_booking(request):
     # current user
     user = request.user
@@ -39,9 +41,10 @@ def view_my_booking(request):
     # get the bookings from
     bookings = Booking.objects.filter(user=user).order_by('-created_at')
 
-    return render(request, 'booking_app/my_bookings.html', {'bookings': bookings})
+    return render(request, 'bookings_app/my_bookings.html', {'bookings': bookings})
 
-def edit_booking(request):
+@login_required
+def edit_booking(request, id):
     # retrieve the booking object
     booking = get_object_or_404(Booking, id=id)
 
@@ -80,6 +83,7 @@ def edit_booking(request):
     # render the booking form with the form and bookings data
     return render(request, 'bookings_app/edit_booking.html', {'form': form, 'booking': booking})
 
+@login_required
 def delete_booking(request, id):
     booking = get_object_or_404(Booking, id=id)
 
