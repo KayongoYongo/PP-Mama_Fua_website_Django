@@ -11,6 +11,7 @@
         <h1>Edit Booking</h1>
         <form id="bookingForm" method="POST" action="{% url 'edit_booking' booking.id %}">
         <!---->
+        <!---->
         {% csrf_token %}
         <div class="mb-3">
             {{ form.pickup_date.label_tag }}
