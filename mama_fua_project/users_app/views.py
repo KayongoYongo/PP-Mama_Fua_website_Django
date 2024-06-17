@@ -63,12 +63,12 @@ def log_in(request):
 
                 # set the remember me value
                 if remember_me:
-                    request.sesssion.set_expiry(settings.SESSION_COOKIE_AGE)
+                    request.session.set_expiry(settings.SESSION_COOKIE_AGE)
                 else:
                     request.session.set_expiry(0)
 
                 # redirect the user
-                return redirect('home_page')
+                return redirect('user_dashboard')
             
             else:
                 # if the authentication failes, add a non field errr to the form
@@ -84,4 +84,4 @@ def log_in(request):
 # Define the method for rendering out the log in page
 def logout_page(request):
     logout(request)
-    return redirect('homepage')
+    return redirect('home_page')
