@@ -5,9 +5,11 @@ from bookings_app.models import Booking
 from bookings_app.forms.bookings_form import BookingsForm
 
 # Create your views here.
+@login_required
 def user_dashboard(request):
     return render(request, 'bookings_app/user_dashboard.html')
 
+@login_required
 def create_booking(request):
     if request.method == 'POST':
 
