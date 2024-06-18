@@ -7,7 +7,23 @@ from bookings_app.forms.bookings_form import BookingsForm
 # Create your views here.
 @login_required
 def user_dashboard(request):
-    return render(request, 'bookings_app/user_dashboard.html')
+    # Fetch bookings for the current user
+    bookings = Booking.objects.filter(user=request.user).values('pickup_date', 'pickup_time', 'location', 'status')
+
+    # Convert bookings to list of events
+    events = []
+    for booking in bookings:
+        # Ensure date is formatted properly
+        pickup_date = booking.get('pickup_date')
+        if pickup_date:
+            events.append({
+                'title': f"{booking.get('location', 'No Location')} ({booking.get('status', 'No Status')})",
+                'start': pickup_date.isoformat(),
+                'description': booking.get('status', 'No Status')
+            })
+
+    # Pass bookings to the template
+    return render(request, 'bookings_app/user_dashboard.html', {'events': events})
 
 @login_required
 def create_booking(request):
