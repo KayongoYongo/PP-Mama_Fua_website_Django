@@ -27,8 +27,8 @@
             <td>{{booking.pickup_time}}</td>
             <td>{{booking.status}}</td>
             <td>{{booking.location}}</td>
-            <td><a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this blog post?');">Delete</a></td>
-            <td><a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this blog post?');">Update</a></td>
+            <td><a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a></td>
+            <td><a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this booking?');">Update</a></td>
         {% endfor %}
       </tr>
     </tbody>
