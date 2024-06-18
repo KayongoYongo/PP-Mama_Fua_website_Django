@@ -10,19 +10,31 @@ def user_dashboard(request):
     # Fetch bookings for the current user
     bookings = Booking.objects.filter(user=request.user).values('pickup_date', 'pickup_time', 'location', 'status')
 
-    # Convert bookings to list of events
+    # Define status colors
+    # Define status colors with eye-friendly color codes
+    status_colors = {
+        'pending': '#FF6B6B',  # Soft red
+        'received': '#4D9DE0',  # Calming blue
+        'ready for pick up': '#F7C548',  # Vibrant yellow
+        'transaction complete': '#4CAF50'  # Subtle green
+    }
+
+    # Convert bookings to list of events with color coding
     events = []
     for booking in bookings:
         # Ensure date is formatted properly
         pickup_date = booking.get('pickup_date')
         if pickup_date:
+            status = booking.get('status', 'No Status').lower()  # Ensure the status matches the keys in status_colors
+            color = status_colors.get(status, 'grey')  # Default to grey if status not found
             events.append({
-                'title': f"{booking.get('location', 'No Location')} ({booking.get('status', 'No Status')})",
+                'title': f"{booking.get('location', 'No Location')} ({status})",
                 'start': pickup_date.isoformat(),
-                'description': booking.get('status', 'No Status')
+                'description': status,
+                'color': color  # Add color based on status
             })
 
-    # Pass bookings to the template
+    # Pass events to the template
     return render(request, 'bookings_app/user_dashboard.html', {'events': events})
 
 @login_required
