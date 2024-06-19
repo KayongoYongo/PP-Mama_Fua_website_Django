@@ -46,17 +46,24 @@ def create_booking(request):
 
         # validate the form daata
         if form.is_valid():
-
             user = request.user
-            pickup_date = form.cleaned_data['pickup_date']
-            pickup_time = form.cleaned_data['pickup_time']
-            location = form.cleaned_data['location']
 
-            # create the booking object
-            Booking.objects.create(user=user, pickup_date=pickup_date, pickup_time=pickup_time, location=location)
+            # Check if all previous bookings have status 'transaction completed'
+            incomplete_bookings = Booking.objects.filter(user=user).exclude(status='transaction complete')
 
-            # redirect the user to the home page
-            return redirect('user_dashboard')
+            if incomplete_bookings.exists():
+                form.add_error(None, "You cannot create a new booking until the transactions of all previous bookings are completed.")
+            
+            else:
+                pickup_date = form.cleaned_data['pickup_date']
+                pickup_time = form.cleaned_data['pickup_time']
+                location = form.cleaned_data['location']
+
+                # create the booking object
+                Booking.objects.create(user=user, pickup_date=pickup_date, pickup_time=pickup_time, location=location)
+
+                # redirect the user to the home page
+                return redirect('user_dashboard')
     else:
         form = BookingsForm()
 
@@ -86,25 +93,28 @@ def edit_booking(request, id):
 
         # validate the form data
         if form.is_valid():
+            if booking.status != 'pending':
+                form.add_error(None, "Booking can only be updated if its status is 'pending'.")
+            else:
 
-            # retrieve the cleaned data from the form
-            pickup_date = form.cleaned_data['pickup_date']
-            pickup_time = form.cleaned_data['pickup_time']
-            location = form.cleaned_data['location']
+                # retrieve the cleaned data from the form
+                pickup_date = form.cleaned_data['pickup_date']
+                pickup_time = form.cleaned_data['pickup_time']
+                location = form.cleaned_data['location']
 
-            # update the bookings object
-            booking.pickup_date = pickup_date
-            booking.pickup_time = pickup_time
-            booking.location = location
+                # update the bookings object
+                booking.pickup_date = pickup_date
+                booking.pickup_time = pickup_time
+                booking.location = location
 
-            # save the updated blog object ot the database
-            booking.save()
+                # save the updated blog object ot the database
+                booking.save()
 
-            # display the success message to the user
-            messages.success(request, 'Booking updated successfully')
+                # display the success message to the user
+                messages.success(request, 'Booking updated successfully')
 
-            # redirect the user to the dashboard
-            return redirect('user_dashboard')
+                # redirect the user to the dashboard
+                return redirect('view_my_booking')
         
     else:
         # if the request method is GET
