@@ -12,6 +12,11 @@
         <h1>Create Booking</h1>
         <form id="bookingForm" method="POST" action="{% url 'create_booking' %}">
         {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
         <div class="mb-3">
             {{ form.pickup_date.label_tag }}
             {{ form.pickup_date }}
