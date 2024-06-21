@@ -17,10 +17,10 @@
 
     <nav class="navbar">
         <a href="{% url 'home_page' %}">Home</a>
-        <a href="{% url 'user_dashboard' %}">Book Online</a>
         <a href="#">About</a>
-        <a href="#">Our location</a>
-        <a href="#">Contact</a>
+        <a href="{% url 'user_dashboard' %}">Book Online</a>
+        <a href="{% url 'our_location' %}">Our location</a>
+        <a href="{% url 'contact_page' %}">Contact</a>
     </nav>
 </header>
 <body>
@@ -57,9 +57,6 @@
     <div class="third-container">
         <h1>How we work</h1>
         <img src="{% static 'img/how-we-work.jpeg' %}" alt="">
-    </div>
-    <div class="last-heading">
-        <h1>Our Prices:</h1>
     </div>
     <div class="last-container">
         <div class="mini-containers">
