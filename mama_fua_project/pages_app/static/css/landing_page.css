@@ -124,12 +124,14 @@ body {
 
 .last-container {
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: rgb(190,224,236);
     align-items: center;
     justify-content: space-between;
     height: 500px;
     width: 100%;
+    margin-top: -20px;
+    padding-top: 20px;
 }
 
 .mini-containers {
